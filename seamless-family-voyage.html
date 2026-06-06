@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aura | Bespoke Travel Concierge</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #e8dcc8;
+    --deep: #0d1a14;
+    --ocean: #1a3a32;
+    --gold: #c9a96e;
+    --gold-light: #e8c98a;
+    --ivory: #f7f2ea;
+    --mist: #d4cfc6;
+    --coral: #b07355;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--ivory);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 3.5rem;
+    background: linear-gradient(to bottom, rgba(13,26,20,0.92) 0%, transparent 100%);
+    backdrop-filter: blur(2px);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 300; letter-spacing: 0.18em;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--mist); text-decoration: none; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--deep); background: var(--gold);
+    padding: 0.6rem 1.4rem; text-decoration: none;
+    transition: background 0.3s;
+  }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; height: 100vh; min-height: 700px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 80%, rgba(26,58,50,0.55) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 20%, rgba(201,169,110,0.08) 0%, transparent 60%),
+      linear-gradient(160deg, #0d1a14 0%, #122820 40%, #0a1510 100%);
+  }
+  /* Animated orb */
+  .hero-orb {
+    position: absolute; width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.06) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    animation: breathe 6s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%,100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+  }
+  /* Wave divider */
+  .hero-line {
+    position: absolute; width: 1px; height: 80px; background: var(--gold);
+    top: 0; left: 50%; opacity: 0.4; animation: dropLine 1.2s ease forwards;
+  }
+  @keyframes dropLine { from { height: 0; opacity: 0; } to { height: 80px; opacity: 0.4; } }
+
+  .hero-eyebrow {
+    font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 7vw, 7rem);
+    font-weight: 300; line-height: 1.05;
+    color: var(--ivory); position: relative;
+    animation: fadeUp 1s 0.5s ease both;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-subtitle {
+    font-size: 0.85rem; letter-spacing: 0.15em;
+    color: var(--mist); margin-top: 1.5rem; max-width: 480px;
+    animation: fadeUp 1s 0.7s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 1.2rem; margin-top: 3rem;
+    animation: fadeUp 1s 0.9s ease both;
+  }
+  .btn-primary {
+    padding: 0.85rem 2.2rem; font-size: 0.72rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    background: var(--gold); color: var(--deep);
+    text-decoration: none; transition: all 0.3s;
+    border: 1px solid var(--gold);
+  }
+  .btn-primary:hover { background: transparent; color: var(--gold); }
+  .btn-ghost {
+    padding: 0.85rem 2.2rem; font-size: 0.72rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    border: 1px solid rgba(201,169,110,0.4); color: var(--gold);
+    text-decoration: none; transition: all 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); background: rgba(201,169,110,0.05); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-size: 0.62rem; letter-spacing: 0.25em; color: var(--mist);
+    animation: fadeUp 1s 1.1s ease both;
+  }
+  .scroll-bar {
+    width: 1px; height: 50px; background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+  @keyframes scrollPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTION SHARED ── */
+  section { position: relative; }
+  .section-label {
+    font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 4vw, 3.8rem);
+    font-weight: 300; line-height: 1.1; color: var(--ivory);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-body {
+    font-size: 0.88rem; line-height: 1.9;
+    color: var(--mist); max-width: 520px;
+  }
+  .gold-rule {
+    width: 40px; height: 1px; background: var(--gold);
+    margin: 1.5rem 0;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    padding: 8rem 3.5rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .about-visual {
+    position: relative; aspect-ratio: 3/4;
+    max-height: 560px;
+  }
+  .about-visual .card-img {
+    width: 100%; height: 100%;
+    background:
+      linear-gradient(180deg, rgba(13,26,20,0.2) 0%, rgba(13,26,20,0.7) 100%),
+      url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=700&q=80') center/cover;
+    border: 1px solid rgba(201,169,110,0.15);
+  }
+
+  .stats-row {
+    display: flex; gap: 2.5rem; margin-top: 2.5rem;
+  }
+  .stat { display: flex; flex-direction: column; gap: 0.3rem; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; color: var(--gold); line-height: 1;
+  }
+  .stat-lbl { font-size: 0.68rem; letter-spacing: 0.15em; color: var(--mist); }
+
+  /* ── DESTINATIONS ── */
+  .destinations-section {
+    padding: 6rem 3.5rem;
+    background: linear-gradient(180deg, var(--deep) 0%, #0a1912 100%);
+  }
+  .dest-header {
+    text-align: center; margin-bottom: 4rem;
+  }
+  .dest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .dest-card {
+    position: relative; overflow: hidden;
+    cursor: pointer; group: true;
+    border: 1px solid rgba(201,169,110,0.1);
+    transition: border-color 0.4s;
+  }
+  .dest-card:hover { border-color: rgba(201,169,110,0.35); }
+  .dest-card.large {
+    grid-column: span 2; grid-row: span 1;
+  }
+  .dest-card .img-wrap {
+    height: 340px; overflow: hidden;
+  }
+  .dest-card.large .img-wrap { height: 420px; }
+  .dest-card .img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.8s ease;
+    filter: brightness(0.8) saturate(1.1);
+  }
+  .dest-card:hover .img-wrap img { transform: scale(1.05); filter: brightness(0.7) saturate(1.2); }
+  .dest-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 2rem 1.8rem 1.8rem;
+    background: linear-gradient(to top, rgba(10,25,18,0.95) 0%, transparent 100%);
+  }
+  .dest-tag {
+    font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .dest-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem; font-weight: 300; color: var(--ivory);
+    line-height: 1;
+  }
+  .dest-desc {
+    font-size: 0.78rem; color: var(--mist); margin-top: 0.5rem;
+    opacity: 0; transform: translateY(8px);
+    transition: all 0.4s;
+  }
+  .dest-card:hover .dest-desc { opacity: 1; transform: translateY(0); }
+
+  /* ── UNIQUE PLACES ── */
+  .unique-section {
+    padding: 8rem 3.5rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .unique-header { margin-bottom: 4rem; }
+  .unique-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
+  }
+  .unique-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(201,169,110,0.1);
+    padding: 2rem 1.5rem 1.8rem;
+    transition: all 0.4s;
+    position: relative; overflow: hidden;
+  }
+  .unique-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--gold); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.4s;
+  }
+  .unique-card:hover::before { transform: scaleX(1); }
+  .unique-card:hover { background: rgba(201,169,110,0.04); }
+  .unique-icon {
+    font-size: 1.8rem; margin-bottom: 1.2rem; display: block;
+  }
+  .unique-location {
+    font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .unique-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--ivory); margin-bottom: 0.8rem;
+  }
+  .unique-body {
+    font-size: 0.78rem; line-height: 1.8; color: var(--mist);
+  }
+
+  /* ── SERVICES ── */
+  .services-section {
+    padding: 8rem 3.5rem;
+    background: var(--ocean);
+    position: relative; overflow: hidden;
+  }
+  .services-section::before {
+    content: 'BESPOKE';
+    position: absolute; right: -2rem; top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10rem; font-weight: 300; letter-spacing: 0.2em;
+    color: rgba(201,169,110,0.04); white-space: nowrap; pointer-events: none;
+  }
+  .services-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 6rem; align-items: start;
+  }
+  .services-list { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+  .service-item {
+    padding: 1.5rem 0; border-bottom: 1px solid rgba(201,169,110,0.12);
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: default; transition: padding 0.3s;
+  }
+  .service-item:first-child { border-top: 1px solid rgba(201,169,110,0.12); }
+  .service-item:hover { padding-left: 0.5rem; }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; color: var(--ivory);
+  }
+  .service-arrow { color: var(--gold); font-size: 1.2rem; }
+  .services-features {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .feature-box {
+    padding: 1.8rem; background: rgba(201,169,110,0.04);
+    border: 1px solid rgba(201,169,110,0.1);
+  }
+  .feature-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; color: rgba(201,169,110,0.3); line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .feature-title {
+    font-size: 0.75rem; letter-spacing: 0.12em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .feature-body { font-size: 0.78rem; color: var(--mist); line-height: 1.7; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    padding: 8rem 3.5rem;
+    max-width: 1200px; margin: 0 auto; text-align: center;
+  }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
+  .testi-card {
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(201,169,110,0.12);
+    text-align: left; position: relative;
+  }
+  .testi-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; color: var(--gold); line-height: 0.5;
+    margin-bottom: 1.2rem; opacity: 0.4;
+  }
+  .testi-text {
+    font-size: 0.85rem; line-height: 1.85; color: var(--mist);
+    font-style: italic; margin-bottom: 1.5rem;
+  }
+  .testi-name { font-size: 0.75rem; letter-spacing: 0.15em; color: var(--gold); }
+  .testi-dest { font-size: 0.68rem; color: var(--mist); margin-top: 0.2rem; }
+
+  /* ── PROCESS ── */
+  .process-section {
+    padding: 8rem 3.5rem;
+    background: linear-gradient(135deg, #0d1a14 0%, #0a1912 100%);
+  }
+  .process-inner { max-width: 1000px; margin: 0 auto; }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 4rem; position: relative;
+  }
+  .process-steps::before {
+    content: ''; position: absolute;
+    top: 2rem; left: 2rem; right: 2rem; height: 1px;
+    background: linear-gradient(to right, var(--gold), transparent);
+    opacity: 0.3;
+  }
+  .step {
+    padding: 0 2rem; position: relative;
+  }
+  .step-num {
+    width: 4rem; height: 4rem; border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: var(--gold); margin-bottom: 1.5rem;
+    background: var(--deep); position: relative; z-index: 1;
+  }
+  .step-title { font-size: 0.8rem; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 0.6rem; }
+  .step-body { font-size: 0.78rem; line-height: 1.75; color: var(--mist); }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 10rem 3.5rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 70% at 50% 50%, rgba(201,169,110,0.06) 0%, transparent 70%),
+      var(--ocean);
+  }
+  .cta-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 300; color: var(--ivory); margin-bottom: 1.5rem;
+  }
+  .cta-title em { color: var(--gold); font-style: italic; }
+  .cta-sub { font-size: 0.85rem; color: var(--mist); margin-bottom: 3rem; line-height: 1.8; }
+  .cta-form {
+    display: flex; gap: 0;
+    border: 1px solid rgba(201,169,110,0.3);
+    max-width: 440px; margin: 0 auto;
+  }
+  .cta-form input {
+    flex: 1; padding: 1rem 1.2rem; background: transparent;
+    border: none; outline: none; color: var(--ivory);
+    font-family: 'Jost', sans-serif; font-size: 0.8rem;
+  }
+  .cta-form input::placeholder { color: var(--mist); }
+  .cta-form button {
+    padding: 1rem 1.5rem; background: var(--gold);
+    border: none; color: var(--deep); cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    transition: background 0.3s; white-space: nowrap;
+  }
+  .cta-form button:hover { background: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 4rem 3.5rem 3rem;
+    border-top: 1px solid rgba(201,169,110,0.12);
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; max-width: 1400px; margin: 0 auto;
+  }
+  .footer-brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--gold); margin-bottom: 0.8rem; letter-spacing: 0.08em;
+  }
+  .footer-tagline { font-size: 0.78rem; color: var(--mist); line-height: 1.7; max-width: 220px; }
+  .footer-col h4 {
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul a { font-size: 0.78rem; color: var(--mist); text-decoration: none; transition: color 0.3s; }
+  .footer-col ul a:hover { color: var(--gold); }
+  .footer-bottom {
+    padding: 1.5rem 3.5rem;
+    border-top: 1px solid rgba(201,169,110,0.08);
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1400px; margin: 0 auto;
+    font-size: 0.68rem; color: rgba(212,207,198,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── DESTINATION GALLERY ── */
+  .gallery-section {
+    padding: 6rem 3.5rem;
+    background: #080f0b;
+  }
+  .gallery-inner { max-width: 1200px; margin: 0 auto; }
+  .gallery-header { text-align: center; margin-bottom: 3.5rem; }
+  .gallery-tabs {
+    display: flex; justify-content: center; gap: 0;
+    border: 1px solid rgba(201,169,110,0.2);
+    max-width: 600px; margin: 0 auto 3rem;
+    flex-wrap: wrap;
+  }
+  .gallery-tab {
+    flex: 1; padding: 0.7rem 1rem; background: transparent;
+    border: none; border-right: 1px solid rgba(201,169,110,0.2);
+    color: var(--mist); cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    transition: all 0.3s; white-space: nowrap;
+  }
+  .gallery-tab:last-child { border-right: none; }
+  .gallery-tab.active, .gallery-tab:hover { background: var(--gold); color: var(--deep); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 260px 260px;
+    gap: 1rem;
+  }
+  .gallery-item {
+    overflow: hidden; position: relative; cursor: pointer;
+  }
+  .gallery-item:first-child {
+    grid-column: span 2; grid-row: span 1;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.7s ease, filter 0.4s;
+    filter: brightness(0.85) saturate(1.1);
+  }
+  .gallery-item:hover img { transform: scale(1.07); filter: brightness(0.65) saturate(1.2); }
+  .gallery-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.2rem 1.2rem 1rem;
+    background: linear-gradient(to top, rgba(8,15,11,0.9) 0%, transparent 100%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--ivory);
+    opacity: 0; transform: translateY(6px); transition: all 0.4s;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
+
+  /* Lightbox */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(8,15,11,0.96); align-items: center; justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 90vw; max-height: 88vh; object-fit: contain;
+    border: 1px solid rgba(201,169,110,0.2);
+  }
+  .lightbox-close {
+    position: absolute; top: 1.5rem; right: 2rem;
+    font-size: 1.8rem; color: var(--gold); cursor: pointer;
+    background: none; border: none; font-family: 'Cormorant Garamond', serif;
+    line-height: 1;
+  }
+  .lightbox-cap {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem; letter-spacing: 0.2em; color: var(--mist); text-transform: uppercase;
+  }
+
+  /* ── BOOKING FORM ── */
+  .booking-section {
+    padding: 8rem 3.5rem;
+    background: var(--ocean);
+    position: relative; overflow: hidden;
+  }
+  .booking-section::after {
+    content: 'AURA';
+    position: absolute; left: -1rem; bottom: -2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14rem; font-weight: 300; letter-spacing: 0.3em;
+    color: rgba(201,169,110,0.03); pointer-events: none; white-space: nowrap;
+  }
+  .booking-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: start;
+  }
+  .booking-left { position: sticky; top: 6rem; }
+  .booking-left .section-body { margin-top: 1rem; }
+  .booking-contact {
+    margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.82rem; color: var(--mist);
+  }
+  .contact-item span:first-child {
+    width: 36px; height: 36px; border: 1px solid rgba(201,169,110,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .booking-form {
+    display: flex; flex-direction: column; gap: 1.2rem;
+    position: relative; z-index: 1;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,169,110,0.2);
+    padding: 0.85rem 1rem;
+    color: var(--ivory); font-family: 'Jost', sans-serif;
+    font-size: 0.82rem; outline: none;
+    transition: border-color 0.3s;
+    appearance: none; -webkit-appearance: none;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(212,207,198,0.4); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select option { background: var(--deep); color: var(--ivory); }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-submit {
+    padding: 1rem 2.5rem; background: var(--gold); color: var(--deep);
+    border: none; cursor: pointer;
+    font-family: 'Jost', sans-serif; font-size: 0.75rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    transition: background 0.3s; align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--gold-light); }
+  .form-note {
+    font-size: 0.68rem; color: rgba(212,207,198,0.45); margin-top: 0.2rem;
+  }
+  .form-success {
+    display: none; padding: 1.5rem;
+    border: 1px solid rgba(201,169,110,0.3);
+    background: rgba(201,169,110,0.05);
+    text-align: center;
+  }
+  .form-success p { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.1em; }
+
+  /* ── WHATSAPP BUTTON ── */
+  .wa-btn {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: #25D366; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+    text-decoration: none; transition: transform 0.3s, box-shadow 0.3s;
+    animation: waPop 0.6s 1.5s ease both;
+  }
+  .wa-btn:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+  .wa-btn svg { width: 28px; height: 28px; fill: white; }
+  .wa-tooltip {
+    position: absolute; right: 68px; top: 50%; transform: translateY(-50%);
+    background: #25D366; color: white; white-space: nowrap;
+    padding: 0.45rem 0.9rem; border-radius: 4px;
+    font-size: 0.72rem; letter-spacing: 0.08em;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .wa-tooltip::after {
+    content: ''; position: absolute; left: 100%; top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent; border-left-color: #25D366;
+  }
+  .wa-btn:hover .wa-tooltip { opacity: 1; }
+  @keyframes waPop {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* scroll reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.9s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-30px); transition: all 0.9s ease; }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(30px); transition: all 0.9s ease; }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .about { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+    .about-visual { max-height: 300px; }
+    .dest-grid { grid-template-columns: 1fr; }
+    .dest-card.large { grid-column: 1; }
+    .unique-grid { grid-template-columns: 1fr 1fr; }
+    .services-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .testi-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .destinations-section, .unique-section, .services-section, .testimonials, .process-section, .cta-section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Aura</div>
+  <ul class="nav-links">
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#unique">Unique Stays</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">How It Works</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Start Planning</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-line"></div>
+  <p class="hero-eyebrow">Aura · Bespoke Travel Concierge</p>
+  <h1 class="hero-title">Aura<br><em>Family Voyage</em></h1>
+  <p class="hero-subtitle">Luxury travel, curated with intention — for families who want more than a holiday.</p>
+  <div class="hero-btns">
+    <a href="#destinations" class="btn-primary">Explore Destinations</a>
+    <a href="#contact" class="btn-ghost">Book a Consultation</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section>
+  <div class="about">
+    <div class="about-visual reveal-left">
+      <div class="card-img"></div>
+
+    </div>
+    <div class="reveal-right">
+      <p class="section-label">Our Philosophy</p>
+      <h2 class="section-title">Travel should feel<br>like <em>coming home</em></h2>
+      <div class="gold-rule"></div>
+      <p class="section-body">We believe the finest family journeys are not assembled from catalogues — they are orchestrated. Each itinerary is a living document, shaped by your family's rhythms, passions, and dreams. From private villa arrivals to bespoke cultural immersions, every moment is considered.</p>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-num">320+</span>
+          <span class="stat-lbl">Families Served</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">48</span>
+          <span class="stat-lbl">Destinations</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <span class="stat-lbl">Bespoke</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATIONS -->
+<section class="destinations-section" id="destinations">
+  <div class="dest-header reveal">
+    <p class="section-label">Our Signature Destinations</p>
+    <h2 class="section-title">The World's Most<br><em>Extraordinary</em> Shores</h2>
+  </div>
+  <div class="dest-grid reveal">
+
+    <!-- Maldives Large -->
+    <div class="dest-card large">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=1200&q=85" alt="Maldives">
+      </div>
+      <div class="dest-info">
+        <p class="dest-tag">Indian Ocean · Private Atolls</p>
+        <h3 class="dest-name">Maldives</h3>
+        <p class="dest-desc">Overwater villa sanctuaries, bioluminescent beaches, and coral reefs teeming with life — the Maldives is the definitive luxury family escape.</p>
+      </div>
+    </div>
+
+    <!-- Thailand -->
+    <div class="dest-card">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=85" alt="Thailand">
+      </div>
+      <div class="dest-info">
+        <p class="dest-tag">Southeast Asia · Kingdom of Smiles</p>
+        <h3 class="dest-name">Thailand</h3>
+        <p class="dest-desc">From gilded temples to private island archipelagos — Thailand enchants every generation.</p>
+      </div>
+    </div>
+
+    <!-- Bali -->
+    <div class="dest-card">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85" alt="Bali">
+      </div>
+      <div class="dest-info">
+        <p class="dest-tag">Indonesia · Island of the Gods</p>
+        <h3 class="dest-name">Bali</h3>
+        <p class="dest-desc">Rice terrace retreats, jungle wellness sanctuaries, and sacred temples wrapped in incense.</p>
+      </div>
+    </div>
+
+    <!-- Phuket -->
+    <div class="dest-card">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=85" alt="Phuket">
+      </div>
+      <div class="dest-info">
+        <p class="dest-tag">Thailand · Andaman Sea</p>
+        <h3 class="dest-name">Phuket & Phang Nga</h3>
+        <p class="dest-desc">Limestone karsts, emerald lagoons, and world-class private yachts awaiting your family.</p>
+      </div>
+    </div>
+
+    <!-- Sri Lanka -->
+    <div class="dest-card">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?w=800&q=85" alt="Sri Lanka">
+      </div>
+      <div class="dest-info">
+        <p class="dest-tag">South Asia · Pearl of the Indian Ocean</p>
+        <h3 class="dest-name">Sri Lanka</h3>
+        <p class="dest-desc">Ancient fortresses, wild leopards, and colonial-era hill stations — a hidden gem for discerning families.</p>
+      </div>
+    </div>
+
+    <!-- Lombok -->
+    <div class="dest-card">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=85" alt="Lombok">
+      </div>
+      <div class="dest-info">
+        <p class="dest-tag">Indonesia · The Quiet Island</p>
+        <h3 class="dest-name">Lombok & Gili</h3>
+        <p class="dest-desc">Pristine beaches without the crowds — Lombok offers the seclusion that true luxury demands.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- UNIQUE PLACES -->
+<section id="unique">
+  <div class="unique-section">
+    <div class="unique-header reveal">
+      <p class="section-label">Rare Experiences</p>
+      <h2 class="section-title">Places That<br><em>Few</em> Will Ever Know</h2>
+      <div class="gold-rule"></div>
+      <p class="section-body">Beyond the known — our curators source experiences accessible only to those with the right connections.</p>
+    </div>
+    <div class="unique-grid">
+
+      <div class="unique-card reveal">
+        <span class="unique-icon">🏝️</span>
+        <p class="unique-location">Maldives</p>
+        <h3 class="unique-title">Private Sandbank Dinners</h3>
+        <p class="unique-body">An uninhabited sandbank set with lanterns, a private chef, and your family — the entire ocean as your dining room under a canopy of stars.</p>
+      </div>
+
+      <div class="unique-card reveal">
+        <span class="unique-icon">🐘</span>
+        <p class="unique-location">Thailand · Chiang Rai</p>
+        <h3 class="unique-title">Ethical Elephant Sanctuary</h3>
+        <p class="unique-body">A private dawn visit to a sanctuary before other guests arrive. Walk, bathe, and bond with rescued elephants in the misty northern highlands.</p>
+      </div>
+
+      <div class="unique-card reveal">
+        <span class="unique-icon">🌿</span>
+        <p class="unique-location">Bali · Ubud</p>
+        <h3 class="unique-title">Rice Paddy Sunrise Yoga</h3>
+        <p class="unique-body">A dawn practice above the Tegallalang terraces with a master yogi, followed by a Balinese blessing ceremony at a centuries-old water temple.</p>
+      </div>
+
+      <div class="unique-card reveal">
+        <span class="unique-icon">🚢</span>
+        <p class="unique-location">Thailand · Phang Nga Bay</p>
+        <h3 class="unique-title">Overnight Junk Charter</h3>
+        <p class="unique-body">Sleep aboard a traditional wooden junk as it anchors in hidden coves. Kayak into sea caves at dusk. Breakfast served on deck as mist lifts off the karsts.</p>
+      </div>
+
+      <div class="unique-card reveal">
+        <span class="unique-icon">🤿</span>
+        <p class="unique-location">Maldives · Hanifaru Bay</p>
+        <h3 class="unique-title">Manta Ray Dusk Swim</h3>
+        <p class="unique-body">A UNESCO protected bay where mantas gather in numbers that can exceed 200 — witnessed at dusk on a private guided snorkel with marine biologists.</p>
+      </div>
+
+      <div class="unique-card reveal">
+        <span class="unique-icon">🎭</span>
+        <p class="unique-location">Bali · Seminyak</p>
+        <h3 class="unique-title">Kecak Fire Dance at Clifftop</h3>
+        <p class="unique-body">Witness the ancient fire dance at Uluwatu temple as the sun sets over the Indian Ocean — arranged with private reserved seating and a local guide.</p>
+      </div>
+
+      <div class="unique-card reveal">
+        <span class="unique-icon">🍃</span>
+        <p class="unique-location">Sri Lanka · Sinharaja</p>
+        <h3 class="unique-title">Rainforest Night Safari</h3>
+        <p class="unique-body">The world's only wet-zone biosphere reserve, explored by torchlight with a naturalist. Rare endemic birds, walking ferns, and the symphony of the jungle after dark.</p>
+      </div>
+
+      <div class="unique-card reveal">
+        <span class="unique-icon">🛶</span>
+        <p class="unique-location">Thailand · Khlong Lat Mayom</p>
+        <h3 class="unique-title">Floating Market by Longtail</h3>
+        <p class="unique-body">Not the tourist version — a locals-only floating market accessed at dawn by private longtail boat, where vendors have traded along these canals for generations.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATION GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-inner">
+    <div class="gallery-header reveal">
+      <p class="section-label">Through the Lens</p>
+      <h2 class="section-title">A Glimpse of What<br><em>Awaits</em> You</h2>
+    </div>
+    <div class="gallery-tabs reveal">
+      <button class="gallery-tab active" data-dest="all">All</button>
+      <button class="gallery-tab" data-dest="maldives">Maldives</button>
+      <button class="gallery-tab" data-dest="thailand">Thailand</button>
+      <button class="gallery-tab" data-dest="bali">Bali</button>
+      <button class="gallery-tab" data-dest="other">More</button>
+    </div>
+    <div class="gallery-grid reveal" id="galleryGrid">
+      <!-- Maldives featured -->
+      <div class="gallery-item" data-cat="maldives" data-label="Maldives · Overwater Villas">
+        <img src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=1000&q=85" alt="Maldives overwater villas">
+        <div class="gallery-caption">Maldives · Overwater Villas</div>
+      </div>
+      <div class="gallery-item" data-cat="maldives" data-label="Maldives · Coral Reefs">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=85" alt="Maldives coral reef">
+        <div class="gallery-caption">Maldives · Coral Reefs</div>
+      </div>
+      <div class="gallery-item" data-cat="thailand" data-label="Thailand · Golden Temples">
+        <img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=85" alt="Thailand temple">
+        <div class="gallery-caption">Thailand · Golden Temples</div>
+      </div>
+      <div class="gallery-item" data-cat="bali" data-label="Bali · Rice Terraces">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=85" alt="Bali rice terraces">
+        <div class="gallery-caption">Bali · Rice Terraces</div>
+      </div>
+      <div class="gallery-item" data-cat="thailand" data-label="Thailand · Phang Nga Bay">
+        <img src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=600&q=85" alt="Phang Nga Bay">
+        <div class="gallery-caption">Thailand · Phang Nga Bay</div>
+      </div>
+      <div class="gallery-item" data-cat="other" data-label="Sri Lanka · Sigiriya Rock">
+        <img src="https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?w=600&q=85" alt="Sri Lanka Sigiriya">
+        <div class="gallery-caption">Sri Lanka · Sigiriya Rock</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">✕</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lightbox-cap" id="lbCap"></div>
+</div>
+<section class="services-section" id="services">
+  <div class="services-inner">
+    <div>
+      <p class="section-label reveal">What We Do</p>
+      <h2 class="section-title reveal">Every Detail,<br><em>Considered</em></h2>
+      <div class="gold-rule reveal"></div>
+      <p class="section-body reveal">From airport arrivals to midnight emergencies — our concierge team is your invisible hand, ensuring nothing is left to chance.</p>
+      <div class="services-list reveal">
+        <div class="service-item"><span class="service-name">Bespoke Itinerary Design</span><span class="service-arrow">→</span></div>
+        <div class="service-item"><span class="service-name">Private Villa Sourcing</span><span class="service-arrow">→</span></div>
+        <div class="service-item"><span class="service-name">24/7 Concierge Support</span><span class="service-arrow">→</span></div>
+        <div class="service-item"><span class="service-name">Child-Friendly Curation</span><span class="service-arrow">→</span></div>
+        <div class="service-item"><span class="service-name">Private Transfers & Charters</span><span class="service-arrow">→</span></div>
+        <div class="service-item"><span class="service-name">In-Destination Experiences</span><span class="service-arrow">→</span></div>
+      </div>
+    </div>
+    <div class="services-features reveal">
+      <div class="feature-box">
+        <div class="feature-num">01</div>
+        <div class="feature-title">White-Glove Planning</div>
+        <p class="feature-body">Your dedicated planner learns your family's unique preferences over a private discovery call — then crafts an itinerary that evolves until it's perfect.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-num">02</div>
+        <div class="feature-title">Vetted Luxury Partners</div>
+        <p class="feature-body">Only the finest — our villa collection and hotel partners are personally inspected, ensuring every property meets our exacting standards for families.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-num">03</div>
+        <div class="feature-title">Children First</div>
+        <p class="feature-body">We curate genuine family experiences, not just adult trips with children added. Every itinerary balances adventure, wonder, and rest for all ages.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-num">04</div>
+        <div class="feature-title">Always-On Support</div>
+        <p class="feature-body">A dedicated concierge is reachable day or night throughout your journey. Flight changes, last-minute requests — consider it handled.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="testimonials">
+    <p class="section-label reveal">Families We've Served</p>
+    <h2 class="section-title reveal">Words from<br><em>Our Voyagers</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">We've traveled with three children for years, and never experienced anything close to this level of care. The Maldives itinerary was genuinely flawless — every transition seamless, every surprise perfectly judged.</p>
+        <p class="testi-name">The Henderson Family</p>
+        <p class="testi-dest">Maldives, 14 nights</p>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">The private elephant sanctuary at dawn was the most extraordinary morning of our lives. Our children still talk about it. The entire Thailand journey felt like a dream we hadn't known to dream.</p>
+        <p class="testi-name">The Okafor-Williams Family</p>
+        <p class="testi-dest">Thailand, 10 nights</p>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Bali was on our list for years. We almost booked a resort ourselves. Hiring The Seamless Family Voyage was the best decision we made — they found a villa and experiences we could never have discovered alone.</p>
+        <p class="testi-name">The Müller Family</p>
+        <p class="testi-dest">Bali, 12 nights</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section" id="process">
+  <div class="process-inner">
+    <div class="reveal" style="text-align:center; margin-bottom:4rem">
+      <p class="section-label">How It Works</p>
+      <h2 class="section-title">Your Journey<br>Begins <em>Here</em></h2>
+    </div>
+    <div class="process-steps reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <p class="step-title">Discovery Call</p>
+        <p class="step-body">A private consultation where we learn your family's passions, pace, and vision — no itinerary ever begins without this.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <p class="step-title">Bespoke Proposal</p>
+        <p class="step-body">Within 5 days, your planner presents a tailored proposal — destinations, properties, and exclusive experiences handpicked for you.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <p class="step-title">Refinement</p>
+        <p class="step-body">We iterate until the itinerary is perfect. Adjust pacing, swap experiences, add a private island night — this is your journey.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <p class="step-title">Seamless Voyage</p>
+        <p class="step-body">Depart with complete confidence. Your concierge is reachable 24/7 as you live the journey we built together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section class="booking-section" id="contact">
+  <div class="booking-inner">
+    <div class="booking-left reveal-left">
+      <p class="section-label">Start Your Journey</p>
+      <h2 class="section-title">Plan Your<br><em>Dream</em> Voyage</h2>
+      <div class="gold-rule"></div>
+      <p class="section-body">Tell us about your family and your dream destination. Our concierge team will craft a bespoke proposal within 48 hours — no obligation, just inspiration.</p>
+      <div class="booking-contact">
+        <div class="contact-item">
+          <span>✉</span>
+          <span>hello@auratravels.com</span>
+        </div>
+        <div class="contact-item">
+          <span>📱</span>
+          <span>+971 54 171 7305</span>
+        </div>
+        <div class="contact-item">
+          <span>🕐</span>
+          <span>Response within 24–48 hours</span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="booking-form" id="bookingForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Your first name">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Your last name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp / Phone</label>
+            <input type="tel" placeholder="+1 234 567 8900">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Dream Destination</label>
+            <select>
+              <option value="" disabled selected>Select a destination</option>
+              <option>Maldives</option>
+              <option>Thailand</option>
+              <option>Bali</option>
+              <option>Phuket & Phang Nga</option>
+              <option>Sri Lanka</option>
+              <option>Lombok & Gili</option>
+              <option>Surprise Me!</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Travel Party</label>
+            <select>
+              <option value="" disabled selected>Family size</option>
+              <option>2 Adults</option>
+              <option>2 Adults + 1 Child</option>
+              <option>2 Adults + 2 Children</option>
+              <option>2 Adults + 3+ Children</option>
+              <option>Multi-family Group</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Approximate Travel Dates</label>
+            <input type="text" placeholder="e.g. July 2026 or flexible">
+          </div>
+          <div class="form-group">
+            <label>Estimated Budget (USD)</label>
+            <select>
+              <option value="" disabled selected>Select range</option>
+              <option>$5,000 – $10,000</option>
+              <option>$10,000 – $20,000</option>
+              <option>$20,000 – $40,000</option>
+              <option>$40,000+</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tell Us Your Vision</label>
+          <textarea placeholder="What does your dream family trip look like? Any special occasions, interests, or must-have experiences?"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Send My Enquiry →</button>
+        <p class="form-note">Complimentary consultation · No obligation · 100% bespoke</p>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <p>✦ &nbsp; Thank you — your enquiry has been received.</p>
+        <p style="color:var(--mist); font-size:0.78rem; margin-top:0.8rem;">Our concierge team will be in touch within 24–48 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-inner reveal">
+    <p class="section-label">Begin Your Story</p>
+    <h2 class="cta-title">Ready for Your<br><em>Aura</em> Voyage?</h2>
+    <p class="cta-sub">Reach out via WhatsApp for an instant conversation with our concierge team — available 7 days a week.</p>
+    <a href="https://wa.me/971541717305?text=Hello%2C%20I%27m%20interested%20in%20planning%20a%20luxury%20family%20trip%20with%20Aura." class="btn-primary" target="_blank" rel="noopener" style="display:inline-block; margin-top:1rem;">
+      💬 &nbsp; Chat on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand-name">Aura</div>
+    <p class="footer-tagline">Bespoke travel concierge for families who believe that the finest journeys leave the deepest marks.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Destinations</h4>
+    <ul>
+      <li><a href="#">Maldives</a></li>
+      <li><a href="#">Thailand</a></li>
+      <li><a href="#">Bali</a></li>
+      <li><a href="#">Sri Lanka</a></li>
+      <li><a href="#">Lombok & Gili</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Services</h4>
+    <ul>
+      <li><a href="#">Itinerary Design</a></li>
+      <li><a href="#">Villa Sourcing</a></li>
+      <li><a href="#">Private Charters</a></li>
+      <li><a href="#">Family Experiences</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Company</h4>
+    <ul>
+      <li><a href="#">Our Story</a></li>
+      <li><a href="#">Our Team</a></li>
+      <li><a href="#">Press</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2026 Aura. All rights reserved.</span>
+  <span>Privacy Policy · Terms of Service</span>
+</div>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a class="wa-btn" href="https://wa.me/971541717305?text=Hello%2C%20I%27m%20interested%20in%20planning%20a%20luxury%20family%20trip%20with%20Aura." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <div class="wa-tooltip">Chat with us</div>
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.469 2.027 7.774L0 32l8.469-2.001A15.938 15.938 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.771-1.845l-.486-.288-5.027 1.187 1.234-4.897-.317-.502A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.27-9.878c-.398-.199-2.354-1.162-2.72-1.294-.366-.133-.633-.199-.9.199-.266.398-1.031 1.294-1.264 1.561-.233.266-.465.299-.863.1-.398-.2-1.681-.619-3.203-1.977-1.183-1.057-1.982-2.362-2.215-2.76-.233-.398-.025-.613.175-.812.18-.178.398-.465.598-.698.2-.233.266-.398.399-.664.133-.266.067-.498-.033-.697-.1-.2-.9-2.169-1.232-2.969-.325-.778-.654-.672-.9-.685l-.766-.013c-.266 0-.698.1-1.064.498-.366.398-1.397 1.364-1.397 3.327s1.431 3.86 1.63 4.126c.2.266 2.817 4.3 6.826 6.032.954.412 1.699.659 2.28.843.958.305 1.83.262 2.519.159.768-.115 2.354-.962 2.687-1.89.333-.929.333-1.725.233-1.89-.099-.166-.366-.266-.764-.465z"/>
+  </svg>
+</a>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger grid children
+  document.querySelectorAll('.unique-grid .reveal, .testi-grid .reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 0.12}s`;
+  });
+
+  // Nav shrink on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 80
+      ? 'rgba(13,26,20,0.97)'
+      : 'linear-gradient(to bottom, rgba(13,26,20,0.92) 0%, transparent 100%)';
+  });
+
+  // Gallery tabs filter
+  const tabs = document.querySelectorAll('.gallery-tab');
+  const items = document.querySelectorAll('.gallery-item');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const dest = tab.dataset.dest;
+      items.forEach(item => {
+        const match = dest === 'all' || item.dataset.cat === dest;
+        item.style.display = match ? 'block' : 'none';
+      });
+    });
+  });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCap = document.getElementById('lbCap');
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      lbImg.src = item.querySelector('img').src;
+      lbCap.textContent = item.dataset.label;
+      lightbox.classList.add('open');
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+  // Form submission (simulated)
+  function submitForm() {
+    const inputs = document.querySelectorAll('#bookingForm input, #bookingForm select, #bookingForm textarea');
+    let filled = true;
+    inputs.forEach(input => { if (!input.value) filled = false; });
+    document.getElementById('bookingForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>
